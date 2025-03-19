@@ -15,7 +15,7 @@ import type { ColDef } from 'ag-grid-community'
 
 ModuleRegistry.registerModules([AllCommunityModule])
 
-export function Tabela() {
+export async function Tabela() {
   const [rowData, setRowData] = useState([
     { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },
     { make: 'Ford', model: 'F-Series', price: 33850, electric: false },
