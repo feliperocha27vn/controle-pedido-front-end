@@ -1,4 +1,4 @@
-export interface OrderData {
+export interface Order {
     id: string,
     data_criacao: Date,
     descricao_pedido: string,
