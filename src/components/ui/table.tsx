@@ -53,7 +53,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
 function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   return (
     <tr
-      data-slot="table-row"
+      data-slot="table-row border-b"
       {...props}
     />
   )

@@ -119,4 +119,23 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  
+  @layer components {
+    .pago {
+      background-color: var(--color-green-500);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+    .aberto {
+      background-color: var(--color-red-500);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+  }
 }
