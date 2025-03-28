@@ -13,6 +13,10 @@ export function TableComponent() {
 
   const orders = useFetch('/pedidos')
 
+  function handleClick() {
+    console.log(id)
+  }
+
   return (
     <div className="flex justify-center w-11/12 border border-neutral-600 rounded-2xl p-2 max-w-[425px]">
       <Table>
@@ -29,14 +33,14 @@ export function TableComponent() {
               <TableRow key={order.id}>
                 <TableCell className="font-medium">{order.nome_cliente}</TableCell>
                 <TableCell>
-                  <div  className={`
+                  <div className={`
                     ${order.situacao_pagamento === 'pago' ? 'pago' : 'aberto'}
                   `}>
                     {order.situacao_pagamento}
                   </div>
-                  </TableCell>
+                </TableCell>
                 <TableCell className="text-right">
-                  <button type="button" id={order.id}>Ver Detalhes</button>
+                  <button type="button" onClick={handleClick}>Ver Detalhes</button>
                 </TableCell>
               </TableRow>
             )
