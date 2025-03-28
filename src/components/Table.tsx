@@ -8,17 +8,25 @@ import {
 } from '@/components/ui/table'
 
 import { useFetch } from '@/hooks/useFetch'
+import { useNavigate } from 'react-router'
+
+interface IdParam {
+  id: string 
+}
 
 export function TableComponent() {
 
   const orders = useFetch('/pedidos')
 
-  function handleClick() {
-    console.log(id)
+  const navigate = useNavigate()
+
+  const idParam = ({ id }: IdParam) => {
+    navigate(`/detalhes-pedido/${id}`)
   }
+  
 
   return (
-    <div className="flex justify-center w-11/12 border border-neutral-600 rounded-2xl p-2 max-w-[425px]">
+    <div className="flex justify-center w-11/12 border border-neutral-600 rounded-2xl p-2 max-w-[425px] max-h-[80%]">
       <Table>
         <TableHeader>
           <TableRow>
@@ -40,7 +48,10 @@ export function TableComponent() {
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
-                  <button type="button" onClick={handleClick}>Ver Detalhes</button>
+                  <button type="button" onClick={() => {
+                    const id = { id: order.id }
+                    idParam(id)
+                  }}>Ver Detalhes</button>
                 </TableCell>
               </TableRow>
             )
