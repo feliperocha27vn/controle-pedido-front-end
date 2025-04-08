@@ -7,16 +7,30 @@ import {
 } from '@/components/ui/card'
 
 import { useFetch } from '@/hooks/useFetch'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+
+import { House } from '@phosphor-icons/react'
 
 export function OrderDetail() {
   const { id } = useParams()
 
+  const navigate = useNavigate()
+
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const order: any = useFetch(`/pedido/${id}`)
 
+  function handleGoHome() {
+    navigate('/')
+  }
+
   return (
     <>
+      <div className="bg-neutral-950 w-full p-3 flex items-center gap-x-1">
+        <House color="white" size={24} />
+        <p className="text-white text-2xl" onClick={handleGoHome}>
+          Início
+        </p>
+      </div>
       <div className="flex flex-1 flex-col bg-neutral-950 h-screen items-center justify-center text-white">
         <Card className="w-11/12 max-w-[390px] h-3/12">
           <CardHeader>
