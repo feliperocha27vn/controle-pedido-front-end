@@ -6,6 +6,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
+import { Button } from '@/components/ui/button'
+
 import { useFetch } from '@/hooks/useFetch'
 import { useNavigate, useParams } from 'react-router'
 
@@ -21,6 +23,10 @@ export function OrderDetail() {
 
   function handleGoHome() {
     navigate('/')
+  }
+
+  function handleDeleteOrder() {
+    useFetch(`/pedido/${id}`)
   }
 
   return (
@@ -43,6 +49,11 @@ export function OrderDetail() {
             <p>R$ {order.valor},00</p>
           </CardFooter>
         </Card>
+        <div className="w-full p-4">
+          <Button variant="destructive" onClick={handleDeleteOrder}>
+            Deletar
+          </Button>
+        </div>
       </div>
     </>
   )
