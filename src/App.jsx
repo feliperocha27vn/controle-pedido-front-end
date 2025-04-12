@@ -27,7 +27,8 @@ export function App() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-svh">
-      <div className="w-11/12 border border-zinc-800 rounded-2xl p-2">
+      <h1 className="text-3xl">Pedidos</h1>
+      <div className="w-11/12 border border-zinc-800 rounded-2xl p-2 mt-5">
         <Table>
           <TableCaption>
             Para ver os detalhes do pedido, basta clicar em cima do mesmo.
@@ -39,7 +40,7 @@ export function App() {
               <TableHead className="text-right">Valor</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className={'text-sm font-medium text-zinc-900'}>
             {pedidos.map(pedido => {
               return (
                 <TableRow key={pedido.id} id={pedido.id}>
