@@ -25,6 +25,7 @@ export function TableList() {
     }
     fetchOrders()
   }, [])
+
   return (
     <Table>
       <TableCaption>
@@ -37,7 +38,7 @@ export function TableList() {
           <TableHead className="text-right">Valor</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody className={'text-sm font-medium text-zinc-900'}>
+      <TableBody className="text-sm font-medium text-zinc-900">
         {pedidos.map(pedido => {
           return (
             <TableRow key={pedido.id} id={pedido.id}>

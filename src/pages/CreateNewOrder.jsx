@@ -1,5 +1,6 @@
 import { House } from 'lucide-react'
 import { useNavigate } from 'react-router'
+import { useForm, Controller } from 'react-hook-form' // Adicione Controller aqui
 
 import { Button } from '@/components/ui/button'
 import {
@@ -20,12 +21,30 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { api } from '@/services/api'
 
 export function CreateNewOrder() {
   const navigate = useNavigate()
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm()
+
   function handleNavigateToHome() {
     navigate('/')
+  }
+
+  async function onSubmit(data) {
+    try {
+      await api.post('/pedido', data)
+
+      console.log(data)
+    } catch {
+      console.error('Error submitting the order')
+    }
   }
 
   return (
@@ -46,37 +65,59 @@ export function CreateNewOrder() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="name">Nome do cliente</Label>
-                  <Input id="name" placeholder="Escreva o nome do cliente" />
+                  <Input
+                    placeholder="Escreva o nome do cliente"
+                    {...register('nomeCliente')}
+                  />
+                  <Label htmlFor="valor">Valor</Label>
+                  <Input
+                    placeholder="Escreva o valor do pedido"
+                    {...register('valor', { valueAsNumber: true })}
+                  />
                   <Textarea
                     placeholder="Escreva a descrição do pedido"
                     className="h-44"
+                    {...register('descricaoPedido')}
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label>Situação do pedido</Label>
-                  <Select>
-                    <SelectTrigger id="situacao-pedido">
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="next">Pago</SelectItem>
-                      <SelectItem value="sveltekit">Em aberto</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Controller
+                    name="situacaoPagamento"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                          <SelectItem value="pago">Pago</SelectItem>
+                          <SelectItem value="aberto">Em aberto</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                 </div>
               </div>
+              <CardFooter className="flex justify-between px-0 mt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleNavigateToHome}
+                >
+                  Cancelar
+                </Button>
+                <Button type="submit">Salvar</Button>
+              </CardFooter>
             </form>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="outline" onClick={handleNavigateToHome}>
-              Cancelar
-            </Button>
-            <Button>Salvar</Button>
-          </CardFooter>
         </Card>
       </div>
     </>
